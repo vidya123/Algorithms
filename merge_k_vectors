@@ -1,0 +1,62 @@
+#include <iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+vector<int> merge(vector<vector<int>> vec){
+  int k = vec.size();
+  int m = vec[0].size();
+  vector<int>s;
+  vector<int>result;
+  int total =k*m;
+  
+    for(int i=0;i<k;i++){
+      vector<int>v=vec[i];
+      if(!v.empty())
+        s.push_back(v.front());
+    }
+    
+  sort(s.begin(), s.end());
+  
+  while(total){
+    total--;
+    for(int i=0;i<k;i++){
+      vector<int>&v=vec[i];
+      
+      if(!v.empty() && s.front()==v.front()) {
+        v.erase(v.begin());
+        result.push_back(s.front());
+        s.erase(s.begin());
+        if(!v.empty())s.push_back(v.front());
+        sort(s.begin(), s.end());                                             
+      }  
+    }
+  }
+  return result;
+}  
+
+// To execute C++, please define "int main()"
+int main() {
+  
+  int n=0,k,m;
+  cout<<"Enter the number if vectors i.e., value of k\n";
+  cin>>k;
+  cout<<"Enter the vector size i.e., value of m\n";
+  cin>>m;
+  vector<vector<int>>main_vec;
+  for(int i=0;i<k;i++){
+    vector<int>v;
+    for(int j=0;j<m;j++) {
+      v.push_back(n++);
+    }
+    main_vec.push_back(v);
+  }    
+
+  vector<int>result = merge(main_vec);
+  
+  vector<int>::iterator it;
+  for (it=result.begin(); it!=result.end(); ++it)
+    cout << ' ' << *it;
+  
+  return 0;
+}
