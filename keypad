@@ -1,0 +1,114 @@
+// This is the text editor interface. 
+// Anything you type or change here will be seen by the other person in real time.
+
+// 1    2    3
+// .   abc  def
+
+// 4    5    6
+// ghi jkl  mno
+
+// 7    8    9
+// pqrs tuv wxyz
+
+//      0
+//     SPACE
+    
+// Input: 6343
+// Output: mdgd, mdge, mdgf, ...
+
+// 1 .
+// 2 a b c
+// 3 d e f 
+
+// mno
+// def
+// ghi
+// def
+
+// mno
+// def
+
+// md me mf nd ne nf od or of
+
+#include<iostream>
+#include<map>
+#include<vector>
+using namespace std;
+
+//arr=<<mno><def><ghi>>=3
+//result<mdg>=3
+
+// result=mdg
+// mdh
+// mdi
+// meg
+
+//mdg
+//mdh
+//me
+
+
+void PrintCombinations(vector<vector<char > >arr, vector<char>result, int v) {
+    if(result.size()==arr.size())
+    {
+        for(int i=0;i<result.size();i++)
+            cout<<result[i]<<" ";
+        cout<<"\n";
+        return;
+    }
+    else {
+        vector<char>temp = arr[v];
+        for(int j=0;j<temp.size();j++){
+            result.push_back(temp[j]);
+            PrintCombinations(arr,result,v+1);
+            result.erase(result.end()-1);
+        }
+    }
+}
+
+
+void Permutations(map<int,vector<char > >umap, vector<int>v){
+    vector<vector<char > >arr;  
+    for(int i=0;i<v.size();i++)
+        arr.push_back(umap[v[i]]);
+    vector<char>result;
+    PrintCombinations(arr,result,0);
+    return;
+}
+
+//arr=<<mno><def><ghi>>
+
+
+int main() {
+    map<int,vector<char > >umap;
+    //fill the map
+    umap[6]={'m','n','o'};
+    umap[3]={'d','e','f'};
+    umap[7]={'p','q','r','s'};
+    
+    vector<int> v;
+    v.push_back(6);
+    v.push_back(3);
+    v.push_back(7);
+    Permutations(umap,v);
+    return 0;
+}
+
+
+// 1    2    3
+// .   abc  def
+
+// 4    5    6
+// ghi jkl  mno
+
+// 7    8    9
+// pqrs tuv wxyz
+
+//      0
+//     SPACE
+
+
+
+
+
+
