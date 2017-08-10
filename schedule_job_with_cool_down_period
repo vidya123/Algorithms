@@ -1,0 +1,46 @@
+#include<iostream>
+#include<map>
+#include<vector>
+using namespace std;
+
+vector<char> schedule(vector<char>v, int c){
+	int current_time = 0;
+	map<char,int> umap;
+	vector<char>temp;
+	for(int i=0;i<v.size();) {
+		int last_execution = umap[v[i]];
+		if(!umap[v[i]]) {
+			umap[v[i]] = ++current_time;
+			temp.push_back(v[i]);
+			i++;		
+		}
+		else {
+			if(current_time>=(last_execution+c)) {			
+				umap[v[i]] = ++current_time;
+				temp.push_back(v[i]);
+				i++;
+			}
+			else {
+			while(current_time<(last_execution+c)) {
+				++current_time;
+				temp.push_back('$');
+			}}
+		}
+	}
+	return temp;
+}
+
+int main() {
+	int cool_down_period = 3;
+	vector<char> v;
+	v.push_back('a');
+	v.push_back('b');
+	v.push_back('b');
+	v.push_back('a');
+	v.push_back('c');
+	v.push_back('b');
+	vector<char>temp = schedule(v,cool_down_period);
+	for(int i=0;i<temp.size();i++)
+		cout<<temp[i];
+	return 0;
+}
