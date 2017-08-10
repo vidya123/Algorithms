@@ -1,0 +1,58 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+void merge(vector<int>&a, int l, int m, int h) {
+	int low = l;
+	int l_end = m-1;
+	vector<int>b;
+	while(l<=l_end && m<=h){
+		if(a[l]<a[m]) {
+			b.push_back(a[l]);
+			l++;
+		}
+		else {
+			b.push_back(a[m]);
+			m++;
+		}
+	}
+	while(l<=l_end) {
+		b.push_back(a[l]);
+		l++;
+	}
+	
+	while(m<=h) {
+		b.push_back(a[m]);
+		m++;
+	}
+	
+	for(int i=0;i<b.size();i++){
+		a[low+i] = b[i];
+	}
+}
+
+void merge_sort(vector<int>&a, int l, int h) {
+	if(l<h) {
+		int m=(l+h)/2;
+		merge_sort(a,l,m);
+		merge_sort(a,m+1,h);
+		merge(a,l,m+1,h);
+	}	
+}
+
+int main() {
+	vector<int>v;
+	v.push_back(4);
+	v.push_back(1);
+	v.push_back(3);
+	v.push_back(2);
+	v.push_back(6);
+	v.push_back(5);
+	
+	merge_sort(v,0,v.size()-1);
+	
+	for(int i=0;i<v.size();i++)
+		cout<<v[i];
+
+	return 0;
+}
