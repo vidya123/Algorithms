@@ -1,0 +1,32 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int findMedian(vector<int>v1, int low1, int high1, vector<int>v2, int low2, int high2) {
+	if(v1.size()==1&&v2.size()==1)	return (v1[low1]+v2[low2])/2;
+	if(low1+1==high1&&low2+1==high2) {
+		int mid1 = v1[low1]>v1[high1]?v1[low1]:v1[high1];
+		int mid2 = v2[low2]>v2[high2]?v2[high2]:v2[low2];//cout<<mid1<<" "<<mid2<<"\n";
+		return (mid1+mid2)/2;
+	}
+	else {
+		if(low1<high1 &&low2<high2) {
+		int mid1 = (low1+high1)/2;
+		int mid2 = (low2+high2)/2;
+		if(v1[mid1]==v2[mid2]) return v1[mid1];
+		if(v1[mid1]<v2[mid2]) return findMedian(v1,mid1+1,high1,v2,low2,mid2-1);
+		else return findMedian(v1,low1,mid1-1,v2,mid2+1,high2);
+	}
+	}
+}
+
+int main () {
+	vector<int>v1;
+	vector<int>v2;
+	for(int i=1;i<=5;i++)
+		v1.push_back(i);
+	for(int i=6;i<=10;i++)
+		v2.push_back(i);
+	cout<<findMedian(v1,0,v1.size()-1,v2,0,v2.size()-1);
+	return 0;	
+}
