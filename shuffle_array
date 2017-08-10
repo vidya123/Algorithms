@@ -1,0 +1,36 @@
+#include<iostream>
+#include<map>
+#include<vector>
+using namespace std;
+
+void shuffle(vector<char>&v,int l,int h) {
+	if(l<h) {
+		int m =	(l+h)/2;m++;
+		int c = (l+m)/2;		
+		for(int i=0;(c+i)<m;i++) {
+			int temp = v[c+i];
+			v[c+i] = v[m+i];
+			v[m+i] = temp; 
+		}
+		shuffle(v,l,m-1);
+		shuffle(v,m,h);
+	}
+}
+
+int main() {
+	vector<char> v;
+	v.push_back('a');
+	v.push_back('b');
+	v.push_back('c');
+	v.push_back('d');
+	v.push_back('A');
+	v.push_back('B');
+	v.push_back('C');
+	v.push_back('D');
+
+	shuffle(v,0,v.size()-1);
+	
+	for(int i=0;i<v.size();i++)
+		cout<<v[i]<< " ";
+	return 0;
+}
