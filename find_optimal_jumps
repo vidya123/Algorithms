@@ -1,0 +1,26 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int find_optimal_jumps(vector<int>v) {
+	vector<int>temp;
+	for(int i=0;i<v.size();i++) temp.push_back(0);
+	for(int i=0;i<v.size();i++) {
+		for(int j=i+1,k=0;k<v[i];j++,k++) {
+			if(temp[j]==0 || temp[j]>temp[i]+1)
+				temp[j] = temp[i]+1;
+		}
+	}
+	return temp.back();
+}
+
+int main() {
+	vector<int> v;
+	v.push_back(2);
+	v.push_back(3);
+	v.push_back(1);
+	v.push_back(1);
+	v.push_back(4);
+	cout<<find_optimal_jumps(v);
+	return 0;
+}
