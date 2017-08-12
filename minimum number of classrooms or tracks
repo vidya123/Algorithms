@@ -1,0 +1,40 @@
+#include<iostream>
+#include<vector>
+#include<map>
+#include<algorithm>
+using namespace std;
+
+int main() {
+	vector<int>arrival;
+	vector<int>depart;
+	map<int,int>umap;
+	arrival.push_back(9);
+	arrival.push_back(915);
+	arrival.push_back(1030);
+	arrival.push_back(1045);
+	depart.push_back(930);
+	depart.push_back(1300);
+	depart.push_back(1100);
+	depart.push_back(1145);
+	for(int i=0;i<depart.size();i++) {
+		umap[depart[i]] = umap[depart[i]]+1;
+		arrival.push_back(depart[i]);
+	}
+	
+	sort(arrival.begin(),arrival.end());
+	int c = 0,max=0;
+	for(int i=0;i<arrival.size();i++) {
+		if(umap[arrival[i]]>=1) { 
+			umap[arrival[i]]--;
+			c--;
+		}
+		else {
+			c++;
+		}
+		if(max<c) max=c;
+	}
+			
+	cout<<"\nminimum number of classrooms="<<max;
+	
+	return 0;
+}
