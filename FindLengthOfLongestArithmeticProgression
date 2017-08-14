@@ -1,0 +1,26 @@
+//Works on sorted array with no duplicates
+//time complexity: O(n^2)
+//space complexity: O(n)
+#include<iostream>
+#include<map>
+using namespace std;
+
+int FindLengthOfLongestAP(int set[],int n) {
+	int max=0;
+	map<int,int> umap;
+	for(int i=0;i<n;i++) {
+		for(int j=i+1;j<n;j++) {
+			int diff = set[j]-set[i];
+			umap[diff]++;
+			if(max<umap[diff]) max = umap[diff];
+		}
+	}
+	return max+1;
+}
+
+int main() {
+	int set[] = {1, 7, 10, 15, 27, 29, 43};
+//	int set[] = {5, 10, 15, 20, 25, 30,35};
+	cout<<FindLengthOfLongestAP(set,7);
+	return 0;
+}
